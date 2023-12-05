@@ -1,9 +1,29 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useEffect } from 'react';
 
 const Input = () => {
   const [domain, setDomain] = useState('');
   const [error, setError] = useState('');
+
+// Function to update the cache
+const updateCache = (domain, data) => {
+  const newCache = {
+    data: data,
+    timestamp: new Date().getTime()
+  };
+  localStorage.setItem(domain, JSON.stringify(newCache));
+};
+
+const checkCache = (domain) => {
+  console.log(localStorage.getItem(domain));
+  const cacheEntry = JSON.parse(localStorage.getItem(domain));
+  if (cacheEntry && (new Date().getTime() - cacheEntry.timestamp) < 24 * 60 * 60 * 1000) {
+    return cacheEntry.data;
+  }
+  return null;
+};
+
   const navigate = useNavigate();
 
   const validateDomain = (domain) => {
@@ -13,16 +33,27 @@ const Input = () => {
   };
 
   const checkDomain = async () => {
+    const currentTime = new Date().getTime();
+
     if (!validateDomain(domain)) {
       setError("Invalid domain format. Please enter a valid domain.");
       return;
     }
 
     try {
+      const cachedData = checkCache(domain);
+
+      if (cachedData) {
+        console.log("using cached data");
+        navigate('/details', { state: { domainData: cachedData } });
+        return;
+      }
+
       const response = await fetch(`/api/check-domain?domain=${domain}`);
       const data = await response.json();
-      console.log("get data", data);
       if (data) {
+        console.log("using fetched data");
+        updateCache(domain, data); // Update cache with new data
         navigate('/details', { state: { domainData: data } });
       }
     } catch (error) {
