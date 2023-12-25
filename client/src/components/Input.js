@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
+import RecentDomains from './RecentDomains';
 
 const Input = () => {
   const [domain, setDomain] = useState('');
@@ -16,7 +17,6 @@ const updateCache = (domain, data) => {
 };
 
 const checkCache = (domain) => {
-  console.log(localStorage.getItem(domain));
   const cacheEntry = JSON.parse(localStorage.getItem(domain));
   if (cacheEntry && (new Date().getTime() - cacheEntry.timestamp) < 24 * 60 * 60 * 1000) {
     return cacheEntry.data;
@@ -75,6 +75,7 @@ const checkCache = (domain) => {
       />
       <button onClick={checkDomain}>Check Registration</button>
       {error && <p className="error-message">{error}</p>}
+      <RecentDomains/>
     </div>
   );
 };
