@@ -1,0 +1,64 @@
+.multiple-domain-search-container {
+    margin: 20px;
+    text-align: center;
+
+  }
+  
+  .domain-input {
+    width: 300px;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+  }
+  
+  .domain-submit-button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 10px;
+  }
+  
+  .domain-submit-button:hover {
+    background-color: #45a049;
+  }
+  
+  .domain-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .domain-table, .domain-table th, .domain-table td {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  .domain-table th {
+    background-color: #f2f2f2;
+  }
+  
+  .table-results {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .table-results th, .table-results td {
+    border: 1px solid #ddd;
+    text-align: left;
+    padding: 8px;
+  }
+  
+  .table-results th {
+    background-color: #f2f2f2;
+  }
+  
+  .table-results tr:nth-child(even) {
+    background-color: #f9f9f9;
+  }
+  

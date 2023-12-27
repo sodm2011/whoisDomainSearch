@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
 import RecentDomains from './RecentDomains';
+import './Input.css';
 
 const Input = () => {
   const [domain, setDomain] = useState('');
@@ -63,8 +63,9 @@ const checkCache = (domain) => {
   };
 
   return (
-    <div>
+    <div className="input-container">
       <input
+        className="input-field"
         type="text"
         value={domain}
         onChange={(e) => {
@@ -73,7 +74,7 @@ const checkCache = (domain) => {
         }}
         placeholder="Enter domain (e.g., example.com)"
       />
-      <button onClick={checkDomain}>Check Registration</button>
+      <button className="submit-button" onClick={checkDomain}>Check Registration</button>
       {error && <p className="error-message">{error}</p>}
       <RecentDomains/>
     </div>

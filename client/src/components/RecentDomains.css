@@ -1,0 +1,32 @@
+.recent-domains-container {
+  margin: 20px;
+  text-align: center;
+}
+
+.table-wrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
+
+
+.table-recent-domains {
+  width: 80%;            /* Adjust the table width as needed */
+  border-collapse: collapse;
+}
+
+.table-recent-domains th, .table-recent-domains td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+.table-recent-domains th {
+  background-color: #f2f2f2;
+}
+
+.table-recent-domains tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+

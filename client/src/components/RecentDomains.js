@@ -19,17 +19,29 @@ const RecentDomains = () => {
   }, []);
 
   return (
-    <div>
-      <h2>Recent Domain Queries</h2>
-      <ul>
+<div className="recent-domains-container">
+  <h2>Recent Domain Queries</h2>
+  <div className="table-wrapper">
+
+    <table className="table-recent-domains">
+      <thead>
+        <tr>
+          <th>Domain</th>
+          <th>Registered</th>
+        </tr>
+      </thead>
+      <tbody>
         {domains.map(domain => (
-          <li key={domain._id}>
-            {domain.domain} - Registered: {domain.registered ? 'Yes' : 'No'}
-            {/* Display other domain details as needed */}
-          </li>
+          <tr key={domain._id}>
+            <td>{domain.domain}</td>
+            <td>{domain.registered ? 'Yes' : 'No'}</td>
+          </tr>
         ))}
-      </ul>
+      </tbody>
+    </table>
     </div>
+</div>
+
   );
 };
 

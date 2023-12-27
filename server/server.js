@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const { domainRoutes } = require('./routes'); // Import routes
 
 const app = express();
+app.use(express.json());
 app.use(cors());
 
 const PORT = process.env.PORT || 4000;
