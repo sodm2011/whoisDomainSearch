@@ -1,7 +1,10 @@
 const express = require('express');
 const cors = require('cors');
 const mongoose = require('mongoose');
+require('dotenv').config();
+
 const { domainRoutes } = require('./routes'); // Import routes
+
 
 const app = express();
 app.use(express.json());

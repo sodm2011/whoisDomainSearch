@@ -1,6 +1,11 @@
 const express = require('express');
 const axios = require('axios');
 const Domain = require('../models/domain'); // Import Mongoose model
+const OpenAI = require('openai');
+
+const openai = new OpenAI({
+  apiKey: process.env.OPENAI_API_KEY,
+});
 
 const router = express.Router();
 
@@ -75,6 +80,39 @@ router.get('/api/recent-domains', async (req, res) => {
       res.json(recentDomains);
     } catch (error) {
       res.status(500).json({ error: 'Failed to fetch recent domains' });
+    }
+  });
+
+// Route to call OpenAI API
+router.post('/api/generate-domains', async (req, res) => {
+    try {
+      const { description, seedWords } = req.body;
+  
+      const response = await openai.chat.completions.create({
+        model: "gpt-3.5-turbo",
+        messages: [
+          {
+            "role": "system",
+            "content": "Generate exactly creative domain names based on website description and seed words."
+          },
+          {
+            "role": "user",
+            "content": `Website description: ${description}\nSeed words: ${seedWords}.`
+          }
+        ],
+        temperature: 0.8,
+        max_tokens: 64,
+        top_p: 1,
+      });
+  
+      // Extract domain suggestions from response
+      console.log(response.data)
+      const suggestions = response.data.choices[0].message.content.split('\n').filter(s => s);
+  
+      res.json({ suggestions });
+    } catch (error) {
+      console.error('Error generating domain names:', error);
+      res.status(500).send('Failed to generate domain names');
     }
   });
 
