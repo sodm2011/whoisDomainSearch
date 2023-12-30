@@ -8,7 +8,7 @@ const MultipleDomainSearch = () => {
   const [results, setResults] = useState([]);
   const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-
+  const url = process.env.REACT_APP_BACKEND_URL;
 
   const suffixOptions = ['.com', '.net', '.org', '.info', '.io', '.ai', '.me', '.cc', '.xyz', '.im', '.co'];
 
@@ -37,6 +37,7 @@ const MultipleDomainSearch = () => {
   
 
   const handleSubmit = async (event) => {
+    setError('')
     event.preventDefault();
     if (!validateBaseDomain(baseDomain)) {
       setError("Invalid domain format. Please enter a valid domain.");
@@ -52,7 +53,7 @@ const MultipleDomainSearch = () => {
 
     setIsLoading(true); // Start loading
     try {
-      const response = await fetch('/api/check-multiple-domains', {
+      const response = await fetch(`${url}/api/check-multiple-domains`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -116,8 +117,8 @@ const MultipleDomainSearch = () => {
                         <tr key={index}>
                         <td>{index + 1}</td>
                         <td>{result.domain}</td>
-                        <td>{result.isRegistered ? 'Yes' : 'No'}</td>
-                        <td>{result.isRegistered ? 'N/A' : result.expirationDate}</td>
+                        <td>{result.available ? 'Yes' : 'No'}</td>
+                        <td>{result.available ? 'N/A' : result.expiry_datetime}</td>
                         </tr>
                     ))}
                     </tbody>

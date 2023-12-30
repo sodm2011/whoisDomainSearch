@@ -10,9 +10,10 @@ const AIDomainGenerator = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [domainStatuses, setDomainStatuses] = useState({}); // New state for domain statuses
 
+  const url = process.env.REACT_APP_BACKEND_URL;
   const handleSubmit = async () => {
     setIsLoading(true);
-    const response = await fetch('/api/generate-domains', {
+    const response = await fetch(`${url}/api/generate-domains`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ description, seedWords })
@@ -42,10 +43,8 @@ const AIDomainGenerator = () => {
     }
 
     try {
-      const response = await fetch(`/api/check-domain?domain=${domain}`);
-      console.log("response", response)
+      const response = await fetch(`${url}/api/check-domain?domain=${domain}`);
       const data = await response.json();
-      console.log("data", data)
         if (data) {
         updateCache(domain, data);
         const registrationStatus = data.registered ? 'Registered' : 'Available';

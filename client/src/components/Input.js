@@ -8,6 +8,7 @@ const Input = () => {
   const [domain, setDomain] = useState('');
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const url = process.env.REACT_APP_BACKEND_URL;
 
   const checkDomain = async () => {
     const currentTime = new Date().getTime();
@@ -21,16 +22,14 @@ const Input = () => {
       const cachedData = checkCache(domain);
 
       if (cachedData) {
-        console.log("using cached data");
         navigate('/details', { state: { domainData: cachedData } });
         return;
       }
 
-      const response = await fetch(`/api/check-domain?domain=${domain}`);
+      const response = await fetch(`${url}/api/check-domain?domain=${domain}`);
       const data = await response.json();
 
       if (data) {
-        console.log("using fetched data");
         updateCache(domain, data); // Update cache with new data
         navigate('/details', { state: { domainData: data } });
       }

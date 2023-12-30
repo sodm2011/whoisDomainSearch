@@ -2,12 +2,13 @@ import React, { useState, useEffect } from 'react';
 
 const RecentDomains = () => {
   const [domains, setDomains] = useState([]);
+  const url = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
     // Fetch the recent domains from the backend
     const fetchDomains = async () => {
       try {
-        const response = await fetch('/api/recent-domains');
+        const response = await fetch(`${url}/api/recent-domains`);
         const data = await response.json();
         setDomains(data);
       } catch (error) {
