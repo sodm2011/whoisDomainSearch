@@ -1,6 +1,6 @@
 .multiple-domain-search-container {
     margin: 20px;
-    text-align: center;
+    /* text-align: center; */
 
   }
   
@@ -14,7 +14,7 @@
   
   .domain-submit-button {
     padding: 10px 20px;
-    background-color: #4CAF50;
+    background-color: #007BFF;
     color: white;
     border: none;
     border-radius: 4px;
@@ -23,7 +23,7 @@
   }
   
   .domain-submit-button:hover {
-    background-color: #45a049;
+    background-color: #0056b3;
   }
   
   .domain-table {

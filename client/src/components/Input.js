@@ -43,6 +43,7 @@ const Input = () => {
 
   return (
     <div className="input-container">
+      <h2>Whois Search</h2>
       <input
         className="input-field"
         type="text"

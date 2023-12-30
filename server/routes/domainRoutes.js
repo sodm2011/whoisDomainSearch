@@ -11,7 +11,6 @@ const router = express.Router();
 
 const checkDomainAvailability = async (name, suffix) => {
     const response = await axios.get(`https://whois.freeaiapi.xyz/?name=${name}&suffix=${suffix}`);
-
       // Check if creation_datetime is a valid date string
     const isValidDate = (dateStr) => {
         const date = new Date(dateStr);
@@ -49,10 +48,9 @@ const checkDomainAvailability = async (name, suffix) => {
     }
 
     try {
-        const data = await checkDomainAvailability(name, suffix);
-        res.json(response.data);
+        const response = await checkDomainAvailability(name, suffix);
+        res.json(response);
     } catch (error) {
-        console.error('WHOIS API request failed:', error);
         res.status(500).json({ error: 'Failed to fetch domain data from WHOIS API' });
     }
 });
@@ -68,7 +66,6 @@ router.post('/api/check-multiple-domains', async (req, res) => {
         }));
         res.json(results);
     } catch (error) {
-      console.error('Error checking multiple domains:', error);
       res.status(500).json({ error: 'Failed to perform multiple domain checks' });
     }
   });
@@ -101,17 +98,15 @@ router.post('/api/generate-domains', async (req, res) => {
           }
         ],
         temperature: 0.8,
-        max_tokens: 64,
+        max_tokens: 128,
         top_p: 1,
       });
   
       // Extract domain suggestions from response
-      console.log(response.data)
-      const suggestions = response.data.choices[0].message.content.split('\n').filter(s => s);
+      const suggestions = response.choices[0].message.content.split('\n').filter(s => s);
   
       res.json({ suggestions });
     } catch (error) {
-      console.error('Error generating domain names:', error);
       res.status(500).send('Failed to generate domain names');
     }
   });
