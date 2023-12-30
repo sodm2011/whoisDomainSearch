@@ -10,7 +10,7 @@ const MultipleDomainSearch = () => {
   const [isLoading, setIsLoading] = useState(false);
 
 
-  const suffixOptions = ['.com', '.net', '.org', '.info', '.io'];
+  const suffixOptions = ['.com', '.net', '.org', '.info', '.io', '.ai', '.me', '.cc', '.xyz', '.im', '.co'];
 
   const handleSuffixChange = (event) => {
     const { value, checked } = event.target;
@@ -80,6 +80,8 @@ const MultipleDomainSearch = () => {
           onChange={(e) => setBaseDomain(e.target.value)}
           placeholder="Enter base domain"
         />
+        <button className="domain-submit-button" onClick={handleCheckAll}>Check All Domains</button>
+        <button className="domain-submit-button" onClick={handleSubmit}>Check Domain</button>
       <div>
             {suffixOptions.map(suffix => (
                 <label key={suffix}>
@@ -94,8 +96,7 @@ const MultipleDomainSearch = () => {
         ))}
 
       </div>
-        <button  className="domain-submit-button" onClick={handleCheckAll}>Check All Domains</button>
-        <button className="domain-submit-button" onClick={handleSubmit}>Check Domain</button>
+
         {error && <p className="error-message">{error}</p>}
 
       </form>
